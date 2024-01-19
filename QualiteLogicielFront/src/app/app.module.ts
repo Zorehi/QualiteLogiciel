@@ -12,6 +12,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {ReactiveFormsModule} from "@angular/forms";
 import { AccueilComponent } from './pages/accueil/accueil.component';
 import { HeaderComponent } from './components/header/header.component';
+import {HttpClientModule} from "@angular/common/http";
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { HeaderComponent } from './components/header/header.component';
     InputFieldComponent,
     AccueilComponent,
     HeaderComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { HeaderComponent } from './components/header/header.component';
     MatInputModule,
     BrowserAnimationsModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
