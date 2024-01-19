@@ -1,0 +1,5 @@
+<div class="connexion" [formGroup]="connexionForm">
+  <app-input-field formControlName="email" type="text">Mail ou matricule</app-input-field>
+  <app-input-field formControlName="password" type="password">Mot de passe</app-input-field>
+  <button class="button" (click)="onClickConnexion()">Connexion</button>
+</div>

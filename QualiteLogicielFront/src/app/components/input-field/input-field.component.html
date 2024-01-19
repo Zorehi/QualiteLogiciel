@@ -1,0 +1,8 @@
+<mat-form-field>
+  <mat-label><ng-content></ng-content></mat-label>
+  <input #input matInput [type]="type" (change)="onChangeValue($event)" [disabled]="disabled">
+  <button matIconSuffix *ngIf="type == 'password'" (click)="toggleVisibility()">
+    <mat-icon #icon>visibility</mat-icon>
+  </button>
+  <mat-error></mat-error>
+</mat-form-field>
