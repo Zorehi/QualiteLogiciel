@@ -10,12 +10,16 @@ import { InputFieldComponent } from './components/input-field/input-field.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
 import {ReactiveFormsModule} from "@angular/forms";
+import { AccueilComponent } from './pages/accueil/accueil.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConnexionComponent,
     InputFieldComponent,
+    AccueilComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
