@@ -1,8 +1,9 @@
 <mat-form-field>
   <mat-label><ng-content></ng-content></mat-label>
   <input #input matInput [type]="type" (change)="onChangeValue($event)" [disabled]="disabled">
-  <button matIconSuffix *ngIf="type == 'password'" (click)="toggleVisibility()">
-    <mat-icon #icon>visibility</mat-icon>
+  <mat-icon matIconPrefix *ngIf="type == 'search'" style="color: rgba(0, 0, 0, 0.6)">search</mat-icon>
+  <button matIconSuffix *ngIf="type == 'password'" (click)="toggleVisibility()" style="margin-right: 10px">
+    <mat-icon #icon style="color: rgba(0, 0, 0, 0.6)">visibility</mat-icon>
   </button>
   <mat-error></mat-error>
 </mat-form-field>

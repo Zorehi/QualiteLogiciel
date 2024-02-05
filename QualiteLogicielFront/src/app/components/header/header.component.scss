@@ -1,0 +1,19 @@
+header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: #f1f1f1;
+  margin-bottom: 20px;
+
+  a {
+    text-decoration: none;
+    color: black;
+    padding: 20px 40px;
+    width: fit-content;
+
+    h1 {
+      text-align: center;
+      margin: 0;
+      width: fit-content;
+    }
+  }
+}

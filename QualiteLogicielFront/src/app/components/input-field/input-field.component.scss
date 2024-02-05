@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 button {
   display: flex;
   align-items: center;
@@ -9,4 +13,5 @@ button {
 
 mat-form-field {
   min-width: 300px;
+  width: 100%;
 }
