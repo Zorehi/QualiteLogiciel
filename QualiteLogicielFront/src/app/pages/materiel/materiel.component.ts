@@ -17,21 +17,29 @@ export class MaterielComponent {
       ref: ["", [Validators.required]],
       img: ["", [Validators.required]],
       num: ["", [Validators.required]]
-    })
+    });
+
+    this.materielForm.controls["ID"].disable();
+    this.materielForm.controls["nom"].disable();
+    this.materielForm.controls["version"].disable();
+    this.materielForm.controls["ref"].disable();
+    this.materielForm.controls["num"].disable();
   }
 
   onClickModifier() {
     if (this.button.nativeElement.textContent == "Modifier") {
+      this.materielForm.controls["ID"].enable();
       this.materielForm.controls["nom"].enable();
-      this.materielForm.controls["prenom"].enable();
-      this.materielForm.controls["mail"].enable();
-      this.materielForm.controls["matricule"].enable();
+      this.materielForm.controls["version"].enable();
+      this.materielForm.controls["ref"].enable();
+      this.materielForm.controls["num"].enable();
       this.button.nativeElement.textContent = "Enregistrer"
     } else {
+      this.materielForm.controls["ID"].disable();
       this.materielForm.controls["nom"].disable();
-      this.materielForm.controls["prenom"].disable();
-      this.materielForm.controls["mail"].disable();
-      this.materielForm.controls["matricule"].disable();
+      this.materielForm.controls["version"].disable();
+      this.materielForm.controls["ref"].disable();
+      this.materielForm.controls["num"].disable();
       this.button.nativeElement.textContent = "Modifier"
       // Requete
     }
