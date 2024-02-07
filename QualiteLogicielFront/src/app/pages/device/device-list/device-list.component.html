@@ -1,0 +1,9 @@
+<app-header></app-header>
+<div class="flex-center">
+    <app-input-field type="search" style="width: 400px" [(ngModel)]="search">Rechercher un matériel</app-input-field>
+    <div>
+        <div *ngFor="let device of deviceList">
+            <app-device-card [device]="device"></app-device-card>
+        </div>
+    </div>
+</div>

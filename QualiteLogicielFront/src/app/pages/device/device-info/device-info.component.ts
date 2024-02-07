@@ -1,15 +1,18 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Title} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-materiel',
-  templateUrl: './materiel.component.html',
-  styleUrls: ['./materiel.component.scss']
+  selector: 'app-materiel-info',
+  templateUrl: './device-info.component.html',
+  styleUrls: ['./device-info.component.scss']
 })
-export class MaterielComponent {
+export class DeviceInfoComponent {
   @ViewChild("button") button: ElementRef<HTMLButtonElement>
   materielForm: FormGroup
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private titleService: Title) {
+    this.titleService.setTitle('Materiel informations - LocaMat');
     this.materielForm = this.fb.group({
       ID: ["", [Validators.required]],
       nom: ["", [Validators.required]],
@@ -44,5 +47,4 @@ export class MaterielComponent {
       // Requete
     }
   }
-
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Title} from "@angular/platform-browser";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-accueil',
@@ -7,4 +9,18 @@ import { Component } from '@angular/core';
 })
 export class AccueilComponent {
 
+  searchDevice: string = "";
+  searchProfil: string = "";
+  constructor(private titleService: Title,
+              private router: Router) {
+    this.titleService.setTitle('Accueil - LocaMat');
+  }
+
+  onEnterKeySearchDevice(event: Event) {
+    this.router.navigate(['device', this.searchDevice]);
+  }
+
+  onEnterKeySearchProfil(event: Event) {
+    this.router.navigate(['profil', this.searchProfil]);
+  }
 }

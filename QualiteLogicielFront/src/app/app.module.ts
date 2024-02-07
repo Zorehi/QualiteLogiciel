@@ -3,40 +3,30 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ConnexionComponent } from './pages/connexion/connexion.component';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import { InputFieldComponent } from './components/input-field/input-field.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatIconModule} from "@angular/material/icon";
-import {ReactiveFormsModule} from "@angular/forms";
-import { AccueilComponent } from './pages/accueil/accueil.component';
-import { HeaderComponent } from './components/header/header.component';
+import {AccueilComponent} from "./pages/accueil/accueil.component";
+import {ComponentsModule} from "./components/components.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {DeviceModule} from "./pages/device/device.module";
+import {ProfilModule} from "./pages/profil/profil.module";
+import {AuthModule} from "./pages/auth/auth.module";
 import {HttpClientModule} from "@angular/common/http";
-import { ChangePasswordComponent } from './pages/change-password/change-password.component';
-import { ProfilComponent } from './pages/profil/profil.component';
-import { MaterielComponent } from './pages/materiel/materiel.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConnexionComponent,
-    InputFieldComponent,
-    AccueilComponent,
-    HeaderComponent,
-    ChangePasswordComponent,
-    ProfilComponent,
-    MaterielComponent,
+    AccueilComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    MatFormFieldModule,
-    MatInputModule,
     BrowserAnimationsModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    ComponentsModule,
+    DeviceModule,
+    ProfilModule,
+    AuthModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

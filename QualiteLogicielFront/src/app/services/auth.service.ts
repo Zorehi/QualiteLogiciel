@@ -7,7 +7,7 @@ import {environment} from "../../environments/environment";
   providedIn: 'root'
 })
 export class AuthService {
-  IsLogged: boolean = false;
+  IsAuthenticated: boolean = true;
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +22,7 @@ export class AuthService {
       }),
       map((data) => {
         if (data) {
-          this.IsLogged = true;
+          this.IsAuthenticated = true;
         }
         return of(data);
       })

@@ -1,0 +1,8 @@
+<app-header></app-header>
+<div [formGroup]="profilForm" class="flex-center" style="flex-direction: column">
+    <app-input-field type="text" formControlName="nom">Nom</app-input-field>
+    <app-input-field type="text" formControlName="prenom">Prénom</app-input-field>
+    <app-input-field type="email" formControlName="mail">Mail</app-input-field>
+    <app-input-field type="text" formControlName="matricule">Matricule</app-input-field>
+    <button #button class="button" (click)="onClickModifier()">Modifier</button>
+</div>

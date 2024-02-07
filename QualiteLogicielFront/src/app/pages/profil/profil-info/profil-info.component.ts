@@ -1,15 +1,18 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Title} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-profil',
-  templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.scss']
+  selector: 'app-profil-info',
+  templateUrl: './profil-info.component.html',
+  styleUrls: ['./profil-info.component.scss']
 })
-export class ProfilComponent {
+export class ProfilInfoComponent {
   @ViewChild("button") button: ElementRef<HTMLButtonElement>
   profilForm: FormGroup
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private titleService: Title) {
+    this.titleService.setTitle('Profil - LocaMat');
     this.profilForm = this.fb.group({
       nom: ["", [Validators.email]],
       prenom: ["", [Validators.required]],
@@ -39,5 +42,4 @@ export class ProfilComponent {
       // Requete
     }
   }
-
 }

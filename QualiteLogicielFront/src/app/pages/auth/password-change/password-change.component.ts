@@ -1,20 +1,23 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from "../../../services/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-change-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss']
+  selector: 'app-password-change',
+  templateUrl: './password-change.component.html',
+  styleUrls: ['./password-change.component.scss']
 })
-export class ChangePasswordComponent {
+export class PasswordChangeComponent {
   changePasswordForm: FormGroup
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private route: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private titleService: Title) {
+    this.titleService.setTitle('Changement de mot de passe - LocaMat');
     this.changePasswordForm = this.fb.group({
       newPassword: ['', Validators.required],
       confirmNewPassword: ['', Validators.required]
