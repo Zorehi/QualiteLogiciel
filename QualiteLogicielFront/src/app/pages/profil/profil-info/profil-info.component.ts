@@ -1,43 +1,45 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Title} from "@angular/platform-browser";
+import {Profil} from "../../../services/user.service";
+import {InputFieldComponent} from "../../../components/input-field/input-field.component";
 
 @Component({
   selector: 'app-profil-info',
   templateUrl: './profil-info.component.html',
   styleUrls: ['./profil-info.component.scss']
 })
-export class ProfilInfoComponent {
+export class ProfilInfoComponent implements AfterViewInit {
   @ViewChild("button") button: ElementRef<HTMLButtonElement>
-  profilForm: FormGroup
-  constructor(private fb: FormBuilder,
-              private titleService: Title) {
-    this.titleService.setTitle('Profil - LocaMat');
-    this.profilForm = this.fb.group({
-      nom: ["", [Validators.email]],
-      prenom: ["", [Validators.required]],
-      mail: ["", [Validators.required, Validators.required]],
-      matricule: ["", [Validators.required]],
-    })
+  @ViewChild("nom") nom: InputFieldComponent
+  @ViewChild("prenom") prenom: InputFieldComponent
+  @ViewChild("mail") mail: InputFieldComponent
+  @ViewChild("matricule") matricule: InputFieldComponent
+  profil: Profil = new Profil();
 
-    this.profilForm.controls["nom"].disable();
-    this.profilForm.controls["prenom"].disable();
-    this.profilForm.controls["mail"].disable();
-    this.profilForm.controls["matricule"].disable();
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('Profil - LocaMat');
+  }
+
+  ngAfterViewInit() {
+    this.nom.setDisabledState(true);
+    this.prenom.setDisabledState(true);
+    this.mail.setDisabledState(true);
+    this.matricule.setDisabledState(true);
   }
 
   onClickModifier() {
     if (this.button.nativeElement.textContent == "Modifier") {
-      this.profilForm.controls["nom"].enable();
-      this.profilForm.controls["prenom"].enable();
-      this.profilForm.controls["mail"].enable();
-      this.profilForm.controls["matricule"].enable();
+      this.nom.setDisabledState(false);
+      this.prenom.setDisabledState(false);
+      this.mail.setDisabledState(false);
+      this.matricule.setDisabledState(false);
       this.button.nativeElement.textContent = "Enregistrer"
     } else {
-      this.profilForm.controls["nom"].disable();
-      this.profilForm.controls["prenom"].disable();
-      this.profilForm.controls["mail"].disable();
-      this.profilForm.controls["matricule"].disable();
+      this.nom.setDisabledState(true);
+      this.prenom.setDisabledState(true);
+      this.mail.setDisabledState(true);
+      this.matricule.setDisabledState(true);
       this.button.nativeElement.textContent = "Modifier"
       // Requete
     }

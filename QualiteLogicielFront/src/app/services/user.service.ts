@@ -23,12 +23,10 @@ export class UserService {
 }
 
 export class Profil {
-  id: number = 0;
-  nom: string = "";
-  prenom: string = "";
-  email: string = "";
-  password: string = "";
-  role: string = "";
-  adresse: string = "";
-  tel: string = "";
+  id: number = 0
+  nom: string = "Legrix"
+  prenom: string = "Jérémy"
+  mail: string = ""
+  password: string = ""
+  matricule: string = ""
 }

@@ -5,8 +5,8 @@
         </a>
     </div>
     <div style="grid-column: 3/3;" class="flex-center">
-        <a routerLink="/profil/1">
-            <h1>Prenom-Nom</h1>
+        <a routerLink="/profil/info/{{profil.id}}">
+            <h1>{{profil.prenom + " - " + profil.nom}}</h1>
         </a>
     </div>
 </header>
