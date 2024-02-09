@@ -1,20 +1,21 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MatIcon} from "@angular/material/icon";
 import {Router} from "@angular/router";
-import {AuthService} from "../../services/auth.service";
-import {catchError, of} from "rxjs";
+import {AuthService} from "../../../services/auth.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-connexion',
-  templateUrl: './connexion.component.html',
-  styleUrls: ['./connexion.component.scss']
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.scss']
 })
-export class ConnexionComponent {
+export class SignInComponent {
   connexionForm: FormGroup;
   constructor(private fb: FormBuilder,
               private router: Router,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private titleService: Title) {
+    this.titleService.setTitle('Connexion - LocaMat');
     this.connexionForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
       password: ['', Validators.required]
@@ -26,7 +27,7 @@ export class ConnexionComponent {
     let password: string = this.connexionForm.controls['password'].value;
     this.authService.PostLogin(email, password).subscribe(data => {
       if (data) {
-        this.router.navigate(['change-password']);
+        this.router.navigate(['auth', 'password-change']);
       }
     })
   }

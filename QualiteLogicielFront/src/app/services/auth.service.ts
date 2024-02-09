@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, Observable, of} from "rxjs";
 import {environment} from "../../environments/environment";
+import {Profil} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  IsLogged: boolean = false;
+  IsAuthenticated: boolean = true;
+  AuthenticatedUser: Profil = new Profil();
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +24,7 @@ export class AuthService {
       }),
       map((data) => {
         if (data) {
-          this.IsLogged = true;
+          this.IsAuthenticated = true;
         }
         return of(data);
       })

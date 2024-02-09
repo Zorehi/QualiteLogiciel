@@ -1,19 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ConnexionComponent} from "./pages/connexion/connexion.component";
 import {AccueilComponent} from "./pages/accueil/accueil.component";
-import {ChangePasswordComponent} from "./pages/change-password/change-password.component";
-import {ProfilComponent} from "./pages/profil/profil.component";
-import {MaterielComponent} from "./pages/materiel/materiel.component";
-import {NouveauMaterielComponent} from "./pages/nouveau-materiel/nouveau-materiel.component";
+import {AuthGuard} from "./auth.guard";
 
 const routes: Routes = [
-  {path: "connexion", component: ConnexionComponent},
-  {path: "change-password/:id", component: ChangePasswordComponent},
-  {path: "accueil", component: AccueilComponent},
-  {path: "profil", component: ProfilComponent},
-  {path: "materiel", component: MaterielComponent},
-  {path: "nouveau-materiel", component: NouveauMaterielComponent}
+  { path: "accueil", component: AccueilComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'accueil', pathMatch: 'full' },
 ];
 
 @NgModule({

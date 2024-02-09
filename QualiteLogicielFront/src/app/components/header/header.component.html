@@ -1,12 +1,12 @@
 <header>
-  <div style="grid-column: 2/3;" class="flex-center">
-    <a routerLink="/accueil">
-      <h1>Qualité Logiciel</h1>
-    </a>
-  </div>
-  <div style="grid-column: 3/3;" class="flex-center">
-    <a routerLink="/profil">
-      <h1>Prenom-Nom</h1>
-    </a>
-  </div>
+    <div style="grid-column: 2/3;" class="flex-center">
+        <a routerLink="/accueil">
+            <h1>Qualité Logiciel</h1>
+        </a>
+    </div>
+    <div style="grid-column: 3/3;" class="flex-center">
+        <a routerLink="/profil/info/{{profil.id}}">
+            <h1>{{profil.prenom + " - " + profil.nom}}</h1>
+        </a>
+    </div>
 </header>

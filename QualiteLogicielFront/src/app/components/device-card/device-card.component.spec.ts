@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConnexionComponent } from './connexion.component';
+import { DeviceCardComponent } from './device-card.component';
 
-describe('ConnexionComponent', () => {
-  let component: ConnexionComponent;
-  let fixture: ComponentFixture<ConnexionComponent>;
+describe('DeviceCardComponent', () => {
+  let component: DeviceCardComponent;
+  let fixture: ComponentFixture<DeviceCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConnexionComponent ]
+      declarations: [ DeviceCardComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ConnexionComponent);
+    fixture = TestBed.createComponent(DeviceCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
