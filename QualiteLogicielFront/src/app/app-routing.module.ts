@@ -5,6 +5,7 @@ import {AccueilComponent} from "./pages/accueil/accueil.component";
 import {ChangePasswordComponent} from "./pages/change-password/change-password.component";
 import {ProfilComponent} from "./pages/profil/profil.component";
 import {MaterielComponent} from "./pages/materiel/materiel.component";
+import {NouveauMaterielComponent} from "./pages/nouveau-materiel/nouveau-materiel.component";
 
 const routes: Routes = [
   {path: "connexion", component: ConnexionComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: "accueil", component: AccueilComponent},
   {path: "profil", component: ProfilComponent},
   {path: "materiel", component: MaterielComponent},
+  {path: "nouveau-materiel", component: NouveauMaterielComponent}
 ];
 
 @NgModule({
