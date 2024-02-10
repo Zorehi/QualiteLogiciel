@@ -1,0 +1,16 @@
+<app-header></app-header>
+<div [formGroup]="materielForm" class="flex-center" style="flex-direction: column">
+  <app-input-field #nom formControlName="nom" type="text">Nom</app-input-field>
+  <app-input-field #prenom formControlName="prenom" type="text">Prénom</app-input-field>
+  <app-input-field #mail formControlName="mail" type="email">Mail</app-input-field>
+  <app-input-field #matricule formControlName="matricule" type="text">Matricule</app-input-field>
+  <select name="role" class="form-select" id="role-select">
+    <option value="">Choisir un rôle</option>
+    <option value="emprunteur">Emprunteur</option>
+    <option value="admin">Administrateur</option>
+  </select>
+  <div class="ligne-boutons">
+    <button class="button" (click)="onClickAnnuler()">Annuler</button>
+    <button class="button" (click)="onClickAjouter()">Ajouter</button>
+  </div>
+</div>

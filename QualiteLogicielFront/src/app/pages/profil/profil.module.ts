@@ -8,16 +8,19 @@ import {RouterModule, Routes} from "@angular/router";
 import {AuthGuard} from "../../auth.guard";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
+import {ProfilAddComponent} from "./profil-add/profil-add.component";
 
 const profilRoutes: Routes = [
   { path: 'profil/search/:search', component: ProfilListComponent, canActivate: [AuthGuard] },
-  { path: 'profil/info/:id', component: ProfilInfoComponent, canActivate: [AuthGuard] }
+  { path: 'profil/info/:id', component: ProfilInfoComponent, canActivate: [AuthGuard] },
+  { path: 'profil/add', component: ProfilAddComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
   declarations: [
     ProfilInfoComponent,
-    ProfilListComponent
+    ProfilListComponent,
+    ProfilAddComponent
   ],
   imports: [
     CommonModule,

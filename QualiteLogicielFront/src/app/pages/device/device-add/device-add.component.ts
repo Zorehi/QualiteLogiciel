@@ -53,6 +53,7 @@ export class DeviceAddComponent {
       window.alert("Format de reference d'appareil invalide");
     else
       window.alert("nom, ref, version valides, suite en construction...");
+    // TODO verifier image puis {insert puis alert/navigate}/alert
   }
 
   /**
