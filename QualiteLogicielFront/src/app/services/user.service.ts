@@ -26,7 +26,7 @@ export class Profil {
   id: number = 0
   nom: string = "Legrix"
   prenom: string = "Jérémy"
-  mail: string = ""
+  email: string = ""
   password: string = ""
   matricule: string = ""
 }

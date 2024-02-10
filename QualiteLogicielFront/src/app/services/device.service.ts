@@ -25,5 +25,8 @@ export class DeviceService {
 export class Device {
   id: number;
   name: string;
-  image: string;
+  version: string;
+  ref: string;
+  image?: File;
+  numTel?: string;
 }

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AccueilComponent} from "./pages/accueil/accueil.component";
-import {NouveauMaterielComponent} from "./pages/nouveau-materiel/nouveau-materiel.component";
 import {ComponentsModule} from "./components/components.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DeviceModule} from "./pages/device/device.module";
@@ -16,8 +15,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
     AppComponent,
-    AccueilComponent,
-    NouveauMaterielComponent
+    AccueilComponent
   ],
   imports: [
     BrowserModule,
