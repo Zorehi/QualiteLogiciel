@@ -1,13 +1,12 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Device;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.model.Device;
 import com.example.demo.repository.DeviceRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DeviceService {

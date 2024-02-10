@@ -1,13 +1,10 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.model.Device;
-
 import java.util.List;
-import java.util.Optional;
 
+import com.example.demo.model.Device;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository; // Assurez-vous d'importer cette annotation
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DeviceRepository extends CrudRepository<Device, Integer> {

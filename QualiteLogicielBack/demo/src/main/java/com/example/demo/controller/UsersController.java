@@ -1,13 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Device;
 import com.example.demo.model.Users;
 import com.example.demo.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.model.Users;
 import com.example.demo.service.UsersService;
 
 import java.util.List;
@@ -19,7 +17,7 @@ public class UsersController {
     @Autowired
     private UsersService usersService;
     @Autowired
-    private UsersRepository usersRepository;
+    private UsersRepository userRepository;
 
     @PutMapping("/add")
     public ResponseEntity<String> addUser(@RequestBody Users users) {
@@ -31,7 +29,7 @@ public class UsersController {
 
     @PatchMapping("/modify")
     public ResponseEntity<String> ModifyUsers(@RequestBody Users users) {
-        Users existingUsers = usersRepository.findById(users.getUsersId());
+        Users existingUsers = userRepository.findById(users.getUsersId());
         existingUsers.setFirstname(users.getFirstname());
         existingUsers.setLastname(users.getLastname());
         existingUsers.setEmail(users.getEmail());

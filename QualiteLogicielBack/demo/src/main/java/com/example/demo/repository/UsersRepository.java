@@ -1,17 +1,13 @@
 package com.example.demo.repository;
 
-
-import org.apache.catalina.User;
-import org.springframework.data.repository.CrudRepository;
-
 import com.example.demo.model.Users;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
-
+@Repository
 public interface UsersRepository extends CrudRepository<Users, Integer> {
     Optional<Users> findByEmail(String email);
 

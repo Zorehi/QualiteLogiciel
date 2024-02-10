@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 @Controller
 @RequestMapping(path="/login")
@@ -43,11 +45,16 @@ public class UsersConnection {
                 return ResponseEntity.ok(response);
             }
             // Mauvais MdP
-            else{
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Mot de passe incorect");
+            else {
+                response.put("success", false);
+                response.put("error", "Mot de passe incorrect");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
             }
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Aucun identifiant trouvé");
+        response.put("success", false);
+        response.put("error", "Aucun identifiant trouvé");
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
     @PatchMapping("/firstconnection")
