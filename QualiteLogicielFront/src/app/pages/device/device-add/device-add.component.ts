@@ -1,11 +1,13 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
+import {Device, DeviceService} from "../../../services/device.service";
 
 const regNomObjet: RegExp = new RegExp('^[^\\n\\r\\t\\v\\f]{1,30}$');
 const regVersion: RegExp = new RegExp('^[a-zA-Z0-9.]{3,15}$');
 const regReference: RegExp = new RegExp('^(AN|AP|XX)\\d{3}$');
+const regNum: RegExp = new RegExp('^\\d{10}$');
 
 @Component({
   selector: 'app-materiel-add',
@@ -13,17 +15,19 @@ const regReference: RegExp = new RegExp('^(AN|AP|XX)\\d{3}$');
   styleUrls: ['./device-add.component.scss']
 })
 export class DeviceAddComponent {
-  materielForm: FormGroup
+  deviceForm: FormGroup
   selectedFile: File | undefined | null = undefined;
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private title: Title) {
+              private title: Title,
+              private deviceService: DeviceService) {
     this.title.setTitle("Ajouter un appareil | LocaMat");
-    this.materielForm = this.fb.group({
-      nom: ["", [Validators.required]],
-      version: ["", [Validators.required]],
-      ref: ["", [Validators.required]],
+    this.deviceForm = this.fb.group({
+      nom: ["", [Validators.required, Validators.pattern(regNomObjet)]],
+      version: ["", [Validators.required, Validators.pattern(regVersion)]],
+      ref: ["", [Validators.required, Validators.pattern(regReference)]],
+      num: ["", [Validators.pattern(regNum)]],
       image: [""]
     });
   }
@@ -34,26 +38,35 @@ export class DeviceAddComponent {
 
   onClickAjouter() {
     // verifier la validite des infos et insert
-    const nom: string = this.materielForm.controls["nom"].value;
-    const ver: string = this.materielForm.controls["version"].value;
-    const ref: string = this.materielForm.controls["ref"].value;
+    const device: Device = {
+      deviceId: 0,
+      name: this.deviceForm.controls["nom"].value,
+      version: this.deviceForm.controls["version"].value,
+      deviceRef: this.deviceForm.controls["ref"].value,
+      phoneNumber: this.deviceForm.controls["num"].value,
+      image: this.selectedFile ? this.selectedFile : undefined
+    };
 
     // HELP je ne sais pas comment recuperer le contenu du fichier image
-    if (nom.length == 0)
+    if (device.name.length == 0)
       window.alert("Nom de l'appareil manquant");
-    else if (!regNomObjet.test(nom))
+    else if (!regNomObjet.test(device.name))
       window.alert("Format de nom d'appareil invalide");
-    else if (ver.length == 0)
+    else if (device.version.length == 0)
       window.alert("Version de l'appareil manquante");
-    else if (!regVersion.test(ver))
+    else if (!regVersion.test(device.version))
       window.alert("Format de version d'appareil invalide");
-    else if (ref.length == 0)
+    else if (device.deviceRef.length == 0)
       window.alert("Référence de l'appareil manquante");
-    else if (!regReference.test(ref))
+    else if (!regReference.test(device.deviceRef))
       window.alert("Format de reference d'appareil invalide");
     else
       window.alert("nom, ref, version valides, suite en construction...");
     // TODO verifier image puis {insert puis alert/navigate}/alert
+    this.deviceService.PutDevice(device).subscribe(() => {
+      window.alert("Appareil ajouté avec succès");
+      this.router.navigate(["accueil"]);
+    });
   }
 
   /**
@@ -67,4 +80,6 @@ export class DeviceAddComponent {
       this.router.navigate(["accueil"]);
     }
   }
+
+  protected readonly FormControl = FormControl;
 }

@@ -24,12 +24,9 @@ public class DeviceController {
 
         deviceService.addDevice(device);
 
-
-
-
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body("Device ajouté avec succès. ID : " + device.getDeviceId());
+                .body(null);
     }
     @PatchMapping("/modify")
     public ResponseEntity<String> ModifyDevice(@RequestBody Device device) {
@@ -43,21 +40,18 @@ public class DeviceController {
         deviceService.updateDevice(existingDevice);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body("Device modifié avec succès. ID : " + device.getDeviceId());
+                .body(null);
     }
 
     @GetMapping("/search")
     public ResponseEntity<List<Device>> searchDevicesByName(@RequestParam String name) {
         List<Device> devices = deviceService.getDevicesByName(name);
-        if (devices.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(devices);
     }
 
     @DeleteMapping("/delete/{deviceRef}")
     public ResponseEntity<String> deleteDeviceByRef(@PathVariable String deviceRef) {
         deviceService.deleteDeviceByDeviceRef(deviceRef);
-        return ResponseEntity.ok("Device supprimé avec succès");
+        return ResponseEntity.ok(null);
     }
 }

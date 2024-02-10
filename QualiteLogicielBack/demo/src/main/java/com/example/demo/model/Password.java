@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 public class Password {
     private int id;
-    private String Password;
+    private String password;
 
     public int getId() {
         return id;
@@ -13,10 +13,10 @@ public class Password {
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
-    public void setPassword(String password) {
-        Password = password;
+    public void setPassword(String newPassword) {
+        password = newPassword;
     }
 }

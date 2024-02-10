@@ -3,6 +3,7 @@ import {environment} from "../../environments/environment";
 import {catchError, of} from "rxjs";
 import {Device} from "./device.service";
 import {HttpClient} from "@angular/common/http";
+import {Role} from "./role.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,36 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   GetProfilBySearch(search: string) {
-    return this.http.get<Profil[]>(`${environment.protocol}://${environment.backend}`).pipe(
+    return this.http.get<Profil[]>(`${environment.protocol}://${environment.backend}/users/search?matricule=${search}`).pipe(
       catchError(err => {
-        alert("Une erreur est survenue");
+        alert("Une erreur est survenue lors de la recherche du profil");
+        return of();
+      })
+    )
+  }
+
+  GetProfilById(id: number) {
+    return this.http.get<Profil>(`${environment.protocol}://${environment.backend}/users/get?id=${id}`).pipe(
+      catchError(err => {
+        alert("Une erreur est survenue lors de la récupération du profil");
+        return of();
+      })
+    )
+  }
+
+  PutProfil(profil: Profil) {
+    return this.http.put(`${environment.protocol}://${environment.backend}/users/add`, profil).pipe(
+      catchError(err => {
+        alert("Une erreur est survenue lors de l'ajout du profil");
+        return of();
+      })
+    )
+  }
+
+  PatchProfil(profil: Profil) {
+    return this.http.patch(`${environment.protocol}://${environment.backend}/users/modify`, profil).pipe(
+      catchError(err => {
+        alert("Une erreur est survenue lors de la modifictaion du profil");
         return of();
       })
     )
@@ -23,10 +51,12 @@ export class UserService {
 }
 
 export class Profil {
-  id: number = 0
-  nom: string = "Legrix"
-  prenom: string = "Jérémy"
-  email: string = ""
-  password: string = ""
-  matricule: string = ""
+  usersId: number
+  lastname: string
+  firstname: string
+  email: string
+  password: string
+  matricule: string
+  firstConnection: boolean
+  role: Role
 }

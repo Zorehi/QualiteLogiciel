@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DeviceRepository extends CrudRepository<Device, Integer> {
     Device findById(int id);
-    List<Device> findByName(String name);
+    List<Device> findDevicesByNameContains(String name);
     void deleteByDeviceRef(String deviceRef);
+
 }

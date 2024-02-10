@@ -24,7 +24,7 @@ public class UsersController {
         usersService.addUsers(users);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body("Utilisateur ajouté avec succès. ID : " + users.getUsersId());
+                .body(null);
     }
 
     @PatchMapping("/modify")
@@ -39,15 +39,12 @@ public class UsersController {
         usersService.updateUsers(existingUsers);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body("Users modifié avec succès. ID : " + users.getUsersId());
+                .body(null);
     }
 
     @GetMapping("/search")
     public ResponseEntity<List<Users>> searchUsersByName(@RequestParam String matricule) {
         List<Users> users = usersService.getUsersByMatricule(matricule);
-        if (users.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(users);
     }
 

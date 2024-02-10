@@ -5,8 +5,9 @@
         </a>
     </div>
     <div style="grid-column: 3/3;" class="flex-center">
-        <a routerLink="/profil/info/{{profil.id}}">
-            <h1>{{profil.prenom + " - " + profil.nom}}</h1>
+        <a routerLink="/profil/info/{{profil.usersId}}">
+            <h1>{{profil.firstname + " - " + profil.lastname}}</h1>
         </a>
+        <button class="button" (click)="onClickDeconnexion()">Deconnexion</button>
     </div>
 </header>

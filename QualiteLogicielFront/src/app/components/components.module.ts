@@ -7,6 +7,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import {RouterLink} from "@angular/router";
 import { DeviceCardComponent } from './device-card/device-card.component';
+import {MatButtonModule} from "@angular/material/button";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -26,7 +28,9 @@ import { DeviceCardComponent } from './device-card/device-card.component';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    RouterLink
+    RouterLink,
+    MatButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class ComponentsModule { }

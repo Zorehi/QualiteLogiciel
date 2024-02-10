@@ -1,6 +1,6 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
-import {NG_VALUE_ACCESSOR} from "@angular/forms";
+import {AbstractControl, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Component({
   selector: 'app-input-field',
@@ -14,17 +14,27 @@ import {NG_VALUE_ACCESSOR} from "@angular/forms";
     }
   ]
 })
-export class InputFieldComponent {
+export class InputFieldComponent implements OnChanges {
   @ViewChild("input") input: ElementRef<HTMLInputElement>;
   @ViewChild("icon") icon: MatIcon;
 
-  @Input("type") type: string = "";
+  @Input() control: AbstractControl = new FormControl();
+  @Input() type: string = "";
 
-  public disabled: boolean = false;
+  formControl: FormControl = new FormControl();
 
-  onChangeValue(event: Event) {
-    this.markAsTouched();
-    this.onChange((event.target as HTMLInputElement)?.value);
+  ngOnChanges(changes: SimpleChanges): void {
+    this.formControl = this.control as FormControl;
+  }
+
+  getErrorMessage(): string {
+    if (this.formControl.hasError('required')) {
+      return 'Champ obligatoire';
+    }
+    if (this.formControl.hasError('pattern')) {
+      return 'Format invalide';
+    }
+    return '';
   }
 
   toggleVisibility() {
@@ -37,36 +47,7 @@ export class InputFieldComponent {
     }
   }
 
-  //Compatible with template driven forms and reactive forms
-  onChange = (event: any) => {};
-  onTouched = () => {};
-  touched = false;
-  registerOnChange(onChange: any): void {
-    this.onChange = onChange;
-  }
-
-  registerOnTouched(onTouched: any): void {
-    this.onTouched = onTouched;
-  }
-
-  markAsTouched() {
-    if (!this.touched) {
-      this.onTouched();
-      this.touched = true;
-    }
-  }
-
-  writeValue(obj: any): void {
-    if (this.input) {
-      if (obj) {
-        this.input.nativeElement.value = obj;
-      } else {
-        this.input.nativeElement.value = "";
-      }
-    }
-  }
-
   setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
+    this.formControl[isDisabled ? 'disable' : 'enable']();
   }
 }

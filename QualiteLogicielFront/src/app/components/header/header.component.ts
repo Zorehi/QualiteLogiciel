@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Profil} from "../../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -8,12 +9,19 @@ import {Profil} from "../../services/user.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  profil: Profil = new Profil();
 
-  constructor(private authService: AuthService) {
+  profil: Profil;
+  constructor(private authService: AuthService,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.profil = this.authService.AuthenticatedUser;
+  }
+
+  onClickDeconnexion() {
+    this.authService.IsAuthenticated = false;
+    this.authService.AuthenticatedUser = new Profil();
+    this.router.navigate(['auth', 'sign-in']);
   }
 }

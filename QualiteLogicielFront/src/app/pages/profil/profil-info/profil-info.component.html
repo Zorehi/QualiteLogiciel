@@ -1,8 +1,16 @@
 <app-header></app-header>
-<div class="flex-center" style="flex-direction: column">
-    <app-input-field #nom type="text" [(ngModel)]="profil.nom">Nom</app-input-field>
-    <app-input-field #prenom type="text" [(ngModel)]="profil.prenom">Prénom</app-input-field>
-    <app-input-field #mail type="email" [(ngModel)]="profil.email">Mail</app-input-field>
-    <app-input-field #matricule type="text" [(ngModel)]="profil.matricule">Matricule</app-input-field>
+<div class="flex-center" [formGroup]="profilForm" style="flex-direction: column">
+    <app-input-field type="text" [control]="profilForm.controls['nom']">Nom</app-input-field>
+    <app-input-field type="text" [control]="profilForm.controls['prenom']">Prénom</app-input-field>
+    <app-input-field type="email" [control]="profilForm.controls['email']">Email</app-input-field>
+    <app-input-field type="text" [control]="profilForm.controls['matricule']">Matricule</app-input-field>
+
+    <mat-form-field style="width: 300px">
+        <mat-label>Rôle</mat-label>
+        <mat-select formControlName="role">
+            <mat-option *ngFor="let role of Roles" [value]="role">{{role.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="profilForm.controls['role'].invalid">Champ requis</mat-error>
+    </mat-form-field>
     <button #button class="button" (click)="onClickModifier()">Modifier</button>
 </div>

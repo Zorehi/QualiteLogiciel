@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {Router} from "@angular/router";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-accueil',
@@ -9,18 +10,18 @@ import {Router} from "@angular/router";
 })
 export class AccueilComponent {
 
-  searchDevice: string = "";
-  searchProfil: string = "";
+  searchDevice: FormControl = new FormControl('');
+  searchProfil: FormControl = new FormControl('');
   constructor(private titleService: Title,
               private router: Router) {
     this.titleService.setTitle('Accueil - LocaMat');
   }
 
   onEnterKeySearchDevice(event: Event) {
-    this.router.navigate(['device', 'search', this.searchDevice]);
+    this.router.navigate(['device', 'search', this.searchDevice.value]);
   }
 
   onEnterKeySearchProfil(event: Event) {
-    this.router.navigate(['profil', 'search', this.searchProfil]);
+    this.router.navigate(['profil', 'search', this.searchProfil.value]);
   }
 }

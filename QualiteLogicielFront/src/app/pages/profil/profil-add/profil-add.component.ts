@@ -1,39 +1,44 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Title} from "@angular/platform-browser";
-import {Profil} from "../../../services/user.service";
-import {InputFieldComponent} from "../../../components/input-field/input-field.component";
+import {Profil, UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
+import {Role, RoleService} from "../../../services/role.service";
 
-const regMail:RegExp = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
-const regMatricule:RegExp = new RegExp('^[a-zA-Z0-9]{7}$');
-const regNom:RegExp = new RegExp('^[a-zA-ZÀ-ÖØ-öø-ÿçÇ\\-\']{1,30}$');
-const regPrenom:RegExp = new RegExp('^[a-zA-ZÀ-ÖØ-öø-ÿçÇ\\-\']{1,30}$');
+const regMail: RegExp = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+const regMatricule: RegExp = new RegExp('^[a-zA-Z0-9]{7}$');
+const regNom: RegExp = new RegExp('^[a-zA-ZÀ-ÖØ-öø-ÿçÇ\\-\']{1,30}$');
+const regPrenom: RegExp = new RegExp('^[a-zA-ZÀ-ÖØ-öø-ÿçÇ\\-\']{1,30}$');
 
 @Component({
   selector: 'app-profil-add',
   templateUrl: './profil-add.component.html',
   styleUrls: ['./profil-add.component.scss']
 })
-export class ProfilAddComponent {
-  @ViewChild("button") button: ElementRef<HTMLButtonElement>
-  @ViewChild("nom") nom: InputFieldComponent
-  @ViewChild("prenom") prenom: InputFieldComponent
-  @ViewChild("mail") mail: InputFieldComponent
-  @ViewChild("matricule") matricule: InputFieldComponent
+export class ProfilAddComponent implements OnInit {
+
   profil: Profil = new Profil()
-  materielForm: FormGroup;
+  profilForm: FormGroup;
+  Roles: Role[] = [];
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private title: Title) {
+              private title: Title,
+              private roleService: RoleService,
+              private usersService: UserService) {
     this.title.setTitle('Ajouter un profil | LocaMat');
-    this.materielForm = this.fb.group({
-      nom: ["", [Validators.required]],
-      prenom: ["", [Validators.required]],
-      mail: ["", [Validators.required]],
-      matricule: ["", [Validators.required]],
-      image: [""]
+    this.profilForm = this.fb.group({
+      nom: ["", [Validators.required, Validators.pattern(regNom)]],
+      prenom: ["", [Validators.required, Validators.pattern(regPrenom)]],
+      email: ["", [Validators.required, Validators.pattern(regMail)]],
+      matricule: ["", [Validators.required, Validators.pattern(regMatricule)]],
+      role: ["", [Validators.required]],
+    });
+  }
+
+  ngOnInit() {
+    this.roleService.GetAllRoles().subscribe((roles) => {
+      this.Roles = roles;
     });
   }
 
@@ -42,39 +47,47 @@ export class ProfilAddComponent {
    */
   onClickAjouter() {
     // verifier la validite des infos et insert
-    const nom: string = this.materielForm.controls["nom"].value;
-    const prenom: string = this.materielForm.controls["prenom"].value;
-    const mail: string = this.materielForm.controls["mail"].value;
-    const matricule: string = this.materielForm.controls["matricule"].value;
-    const select:HTMLSelectElement = <HTMLSelectElement>document.getElementById("role-select");
-    const role = select.value;
+    const profil: Profil = {
+      usersId: 0,
+      firstname: this.profilForm.controls["prenom"].value,
+      lastname: this.profilForm.controls["nom"].value,
+      email: this.profilForm.controls["email"].value,
+      matricule: this.profilForm.controls["matricule"].value,
+      role: this.profilForm.controls["role"].value,
+      password: "",
+      firstConnection: true
+    }
 
     // validite du champ 'Nom'
-    if (nom.length == 0)
+    if (profil.lastname.length == 0)
       window.alert("Nom de famille de l'employé manquant");
-    else if (!regNom.test(nom))
+    else if (!regNom.test(profil.lastname))
       window.alert("Format de nom de famille invalide");
     // validite du champ 'Prenom'
-    else if (prenom.length == 0)
+    else if (profil.firstname.length == 0)
       window.alert("Prenom de l'employé manquant");
-    else if (!regPrenom.test(prenom))
+    else if (!regPrenom.test(profil.firstname))
       window.alert("Format de prenom invalide");
     // validite du champ 'Mail'
-    else if (mail.length == 0)
+    else if (profil.email.length == 0)
       window.alert("Adresse mail de l'employé manquante");
-    else if (!regMail.test(mail))
+    else if (!regMail.test(profil.email))
       window.alert("Format d'adresse mail invalide");
     // validite du champ 'Matricule'
-    else if (matricule.length == 0)
+    else if (profil.matricule.length == 0)
       window.alert("Matricule de l'employé manquant");
-    else if (!regMatricule.test(matricule))
+    else if (!regMatricule.test(profil.matricule))
       window.alert("Format de matricule invalide");
     // choix du role d'utilisateur
-    else if (role.length == 0)
+    else if (profil.role.name.length == 0)
       window.alert("Role de l'utilisateur manquant");
-    else if (role == "emprunteur" || window.confirm("Voulez-vous vraiment donner le role d'administrateur à cette personne ?"))
+    else if (profil.role.name == "admin" || window.confirm("Voulez-vous vraiment donner le role d'administrateur à cette personne ?"))
       window.alert("tous les champs sont valides, suite en construction...");
       // TODO essayer d'insert puis alert/navigate
+    this.usersService.PutProfil(profil).subscribe(() => {
+      window.alert("Profil ajouté avec succès");
+      this.router.navigate(["accueil"]);
+    });
   }
 
   /**

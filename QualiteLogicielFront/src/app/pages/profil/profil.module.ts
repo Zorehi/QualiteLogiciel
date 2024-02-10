@@ -9,6 +9,7 @@ import {AuthGuard} from "../../auth.guard";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {ProfilAddComponent} from "./profil-add/profil-add.component";
+import {MatSelectModule} from "@angular/material/select";
 
 const profilRoutes: Routes = [
   { path: 'profil/search/:search', component: ProfilListComponent, canActivate: [AuthGuard] },
@@ -29,7 +30,8 @@ const profilRoutes: Routes = [
     ReactiveFormsModule,
     ComponentsModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ]
 })
 export class ProfilModule { }

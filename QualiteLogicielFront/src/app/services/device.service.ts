@@ -12,9 +12,27 @@ export class DeviceService {
   constructor(private http: HttpClient) { }
 
   GetDeviceBySearch(search: string) {
-    return this.http.get<Device[]>(`${environment.protocol}://${environment.backend}`).pipe(
+    return this.http.get<Device[]>(`${environment.protocol}://${environment.backend}/device/search?name=${search}`).pipe(
       catchError(err => {
-        alert("Une erreur est survenue");
+        alert("Une erreur est survenue lors de la recherche de materiel");
+        return of();
+      })
+    )
+  }
+
+  PutDevice(device: Device) {
+    return this.http.put(`${environment.protocol}://${environment.backend}/device/add`, device).pipe(
+      catchError(err => {
+        alert("Une erreur est survenue lors de l'ajout d'un materiel");
+        return of();
+      })
+    )
+  }
+
+  PatchDevice(device: Device) {
+    return this.http.patch(`${environment.protocol}://${environment.backend}/device/modify`, device).pipe(
+      catchError(err => {
+        alert("Une erreur est survenue lors de la modification d'un materiel");
         return of();
       })
     )
@@ -23,10 +41,10 @@ export class DeviceService {
 }
 
 export class Device {
-  id: number;
+  deviceId: number;
   name: string;
   version: string;
-  ref: string;
+  deviceRef: string;
   image?: File;
-  numTel?: string;
+  phoneNumber?: string;
 }

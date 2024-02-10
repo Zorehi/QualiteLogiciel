@@ -22,12 +22,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     ComponentsModule,
     DeviceModule,
-    ProfilModule,
     AuthModule,
-    FormsModule,
-    ReactiveFormsModule
+    ProfilModule
   ],
   providers: [],
   bootstrap: [AppComponent]

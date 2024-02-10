@@ -24,8 +24,8 @@ public class UsersService {
         usersRepository.save(users);
     }
 
-    public List<Users> getUsersByMatricule(String matricule) {
-        return usersRepository.findByMatricule(matricule);
+    public List<Users> getUsersByMatricule(String search) {
+        return usersRepository.findUsersByFirstnameContainsOrLastnameContainsOrMatriculeContainsOrEmailContains(search, search, search, search);
     }
     public Users getUsersById(int id) {
         return usersRepository.findById(id);

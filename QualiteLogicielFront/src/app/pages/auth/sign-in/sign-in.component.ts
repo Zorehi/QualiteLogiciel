@@ -26,8 +26,14 @@ export class SignInComponent {
     let email: string = this.connexionForm.controls['email'].value;
     let password: string = this.connexionForm.controls['password'].value;
     this.authService.PostLogin(email, password).subscribe(data => {
-      if (data) {
-        this.router.navigate(['auth', 'password-change']);
+      if (data.success) {
+        this.authService.IsAuthenticated = true;
+        this.authService.AuthenticatedUser = data.user;
+        if (data.firstConnection) {
+          this.router.navigate(['auth', 'password-change']);
+        } else {
+          this.router.navigate(['accueil']);
+        }
       }
     })
   }

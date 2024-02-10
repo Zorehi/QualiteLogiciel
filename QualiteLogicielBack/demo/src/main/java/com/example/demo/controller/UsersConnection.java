@@ -67,7 +67,7 @@ public class UsersConnection {
         usersService.updateUsers(user);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body("Mot de passe modifié avec succès. ID : " + user.getUsersId());
+                .body(null);
     }
 
 

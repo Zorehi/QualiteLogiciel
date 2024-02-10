@@ -2,6 +2,10 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Title} from "@angular/platform-browser";
 
+const regNomObjet: RegExp = new RegExp('^[^\\n\\r\\t\\v\\f]{1,30}$');
+const regVersion: RegExp = new RegExp('^[a-zA-Z0-9.]{3,15}$');
+const regReference: RegExp = new RegExp('^(AN|AP|XX)\\d{3}$');
+
 @Component({
   selector: 'app-materiel-info',
   templateUrl: './device-info.component.html',
@@ -9,40 +13,40 @@ import {Title} from "@angular/platform-browser";
 })
 export class DeviceInfoComponent {
   @ViewChild("button") button: ElementRef<HTMLButtonElement>
-  materielForm: FormGroup
+  deviceForm: FormGroup
   constructor(private fb: FormBuilder,
               private titleService: Title) {
     this.titleService.setTitle('Materiel informations - LocaMat');
-    this.materielForm = this.fb.group({
+    this.deviceForm = this.fb.group({
       ID: ["", [Validators.required]],
-      nom: ["", [Validators.required]],
-      version: ["", [Validators.required]],
-      ref: ["", [Validators.required]],
+      nom: ["", [Validators.required, Validators.pattern(regNomObjet)]],
+      version: ["", [Validators.required, Validators.pattern(regVersion)]],
+      ref: ["", [Validators.required, Validators.pattern(regReference)]],
       img: ["", [Validators.required]],
       num: ["", [Validators.required]]
     });
 
-    this.materielForm.controls["ID"].disable();
-    this.materielForm.controls["nom"].disable();
-    this.materielForm.controls["version"].disable();
-    this.materielForm.controls["ref"].disable();
-    this.materielForm.controls["num"].disable();
+    this.deviceForm.controls["ID"].disable();
+    this.deviceForm.controls["nom"].disable();
+    this.deviceForm.controls["version"].disable();
+    this.deviceForm.controls["ref"].disable();
+    this.deviceForm.controls["num"].disable();
   }
 
   onClickModifier() {
     if (this.button.nativeElement.textContent == "Modifier") {
-      this.materielForm.controls["ID"].enable();
-      this.materielForm.controls["nom"].enable();
-      this.materielForm.controls["version"].enable();
-      this.materielForm.controls["ref"].enable();
-      this.materielForm.controls["num"].enable();
+      this.deviceForm.controls["ID"].enable();
+      this.deviceForm.controls["nom"].enable();
+      this.deviceForm.controls["version"].enable();
+      this.deviceForm.controls["ref"].enable();
+      this.deviceForm.controls["num"].enable();
       this.button.nativeElement.textContent = "Enregistrer"
     } else {
-      this.materielForm.controls["ID"].disable();
-      this.materielForm.controls["nom"].disable();
-      this.materielForm.controls["version"].disable();
-      this.materielForm.controls["ref"].disable();
-      this.materielForm.controls["num"].disable();
+      this.deviceForm.controls["ID"].disable();
+      this.deviceForm.controls["nom"].disable();
+      this.deviceForm.controls["version"].disable();
+      this.deviceForm.controls["ref"].disable();
+      this.deviceForm.controls["num"].disable();
       this.button.nativeElement.textContent = "Modifier"
       // Requete
     }

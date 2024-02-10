@@ -1,6 +1,9 @@
 <app-header></app-header>
 <div class="flex-center" style="flex-direction: column">
-    <app-input-field type="search" style="width: 400px" [(ngModel)]="search">Rechercher un matériel</app-input-field>
+    <div class="flex-center" style="flex-direction: column; margin-bottom: 20px">
+        <app-input-field type="search" style="width: 400px" [control]="formControl">Rechercher un matériel</app-input-field>
+        <button class="button" routerLink="/device/add">Ajouter un matériel</button>
+    </div>
     <div style="max-width: 1980px; width: 80%">
         <table mat-table [dataSource]="deviceList" matSort style="max-width: 1980px">
             <ng-container matColumnDef="name">
@@ -9,7 +12,7 @@
             </ng-container>
             <ng-container matColumnDef="ref">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Réfèrence </th>
-                <td mat-cell *matCellDef="let device"> {{device.ref}} </td>
+                <td mat-cell *matCellDef="let device"> {{device.deviceRef}} </td>
             </ng-container>
             <ng-container matColumnDef="version">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Version </th>
@@ -17,7 +20,7 @@
             </ng-container>
             <ng-container matColumnDef="numTel">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro de téléphone </th>
-                <td mat-cell *matCellDef="let device"> {{device.numTel}} </td>
+                <td mat-cell *matCellDef="let device"> {{device.phoneNumber}} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let device; columns: displayedColumns;"></tr>

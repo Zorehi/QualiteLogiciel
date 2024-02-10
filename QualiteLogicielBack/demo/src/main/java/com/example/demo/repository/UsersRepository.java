@@ -13,5 +13,5 @@ public interface UsersRepository extends CrudRepository<Users, Integer> {
 
     Users findById(int id);
 
-    List<Users> findByMatricule(String matricule);
+    List<Users> findUsersByFirstnameContainsOrLastnameContainsOrMatriculeContainsOrEmailContains(String firstname, String lastname, String matricule, String email);
 }

@@ -15,7 +15,6 @@ export class PasswordChangeComponent {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private route: Router,
-              private activatedRoute: ActivatedRoute,
               private titleService: Title) {
     this.titleService.setTitle('Changement de mot de passe - LocaMat');
     this.changePasswordForm = this.fb.group({
@@ -29,15 +28,13 @@ export class PasswordChangeComponent {
     const confirmNewPassword: string = this.changePasswordForm.controls['confirmNewPassword'].value
 
     if (newPassword == confirmNewPassword) {
-      const idRouted = this.activatedRoute.snapshot.paramMap.get('id');
-      const idUser = idRouted ? +idRouted : 0;
-      this.authService.PatchPassword(idUser, newPassword).subscribe(data => {
+      this.authService.PatchPassword(this.authService.AuthenticatedUser.usersId, newPassword).subscribe(data => {
         if (data) {
           this.route.navigate(['accueil']);
         }
       })
     } else {
-
+      alert("Les mots de passe ne sont pas identiques");
     }
   }
 }
