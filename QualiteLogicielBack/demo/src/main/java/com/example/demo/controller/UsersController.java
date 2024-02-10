@@ -50,5 +50,13 @@ public class UsersController {
         }
         return ResponseEntity.ok(users);
     }
+
+
+    @GetMapping("/get")
+    public ResponseEntity<Users> searchUsersById(@RequestParam int id){
+        Users users = usersService.getUsersById(id);
+
+        return ResponseEntity.ok(users);
+    }
 }
 

@@ -36,12 +36,14 @@ public class UsersConnection {
             if (user.getFirstConnection() == Boolean.TRUE && user.getPassword().equals(login.getPassword())) {
                 response.put("success", true);
                 response.put("firstConnection", true);
+                response.put("user", user);
                 return ResponseEntity.ok(response);
             }
             //Cas passant
             if (user.getPassword().equals(login.getPassword())) {
                 response.put("success", true);
                 response.put("firstConnection", false);
+                response.put("user", user);
                 return ResponseEntity.ok(response);
             }
             // Mauvais MdP

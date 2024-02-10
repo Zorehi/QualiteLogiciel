@@ -27,4 +27,7 @@ public class UsersService {
     public List<Users> getUsersByMatricule(String matricule) {
         return usersRepository.findByMatricule(matricule);
     }
+    public Users getUsersById(int id) {
+        return usersRepository.findById(id);
+    }
 }
