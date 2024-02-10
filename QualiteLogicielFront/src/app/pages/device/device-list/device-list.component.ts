@@ -11,7 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 export class DeviceListComponent {
 
   search: string = "";
-
+  displayedColumns: string[] = ['name', 'version', 'ref', 'numTel'];
   deviceList: Device[] = [];
 
   constructor(private deviceService: DeviceService,

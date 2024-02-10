@@ -2,7 +2,7 @@
 <div class="flex-center" style="flex-direction: column">
     <app-input-field #nom type="text" [(ngModel)]="profil.nom">Nom</app-input-field>
     <app-input-field #prenom type="text" [(ngModel)]="profil.prenom">Prénom</app-input-field>
-    <app-input-field #mail type="email" [(ngModel)]="profil.mail">Mail</app-input-field>
+    <app-input-field #mail type="email" [(ngModel)]="profil.email">Mail</app-input-field>
     <app-input-field #matricule type="text" [(ngModel)]="profil.matricule">Matricule</app-input-field>
     <button #button class="button" (click)="onClickModifier()">Modifier</button>
 </div>

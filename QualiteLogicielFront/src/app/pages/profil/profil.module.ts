@@ -6,9 +6,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ComponentsModule} from "../../components/components.module";
 import {RouterModule, Routes} from "@angular/router";
 import {AuthGuard} from "../../auth.guard";
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
 
 const profilRoutes: Routes = [
-  { path: 'profil/:search', component: ProfilListComponent, canActivate: [AuthGuard] },
+  { path: 'profil/search/:search', component: ProfilListComponent, canActivate: [AuthGuard] },
   { path: 'profil/info/:id', component: ProfilInfoComponent, canActivate: [AuthGuard] }
 ]
 
@@ -22,7 +24,9 @@ const profilRoutes: Routes = [
     RouterModule.forChild(profilRoutes),
     FormsModule,
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
+    MatSortModule,
+    MatTableModule
   ]
 })
 export class ProfilModule { }

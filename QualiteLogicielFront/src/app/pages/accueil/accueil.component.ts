@@ -17,10 +17,10 @@ export class AccueilComponent {
   }
 
   onEnterKeySearchDevice(event: Event) {
-    this.router.navigate(['device', this.searchDevice]);
+    this.router.navigate(['device', 'search', this.searchDevice]);
   }
 
   onEnterKeySearchProfil(event: Event) {
-    this.router.navigate(['profil', this.searchProfil]);
+    this.router.navigate(['profil', 'search', this.searchProfil]);
   }
 }

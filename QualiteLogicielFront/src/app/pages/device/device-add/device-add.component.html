@@ -1,1 +1,13 @@
-<p>materiel-add works!</p>
+<app-header></app-header>
+<div [formGroup]="materielForm" class="flex-center" style="flex-direction: column">
+    <app-input-field type="text" formControlName="nom">Nom</app-input-field>
+    <app-input-field type="text" formControlName="version">Version</app-input-field>
+    <app-input-field type="file" formControlName="ref">Référence</app-input-field>
+    <p>Image (facultatif)</p>
+    <input type="file" (change)="onFileSelected($event)" formControlName="image" class="fileInput" accept="image/jpeg">
+    <div class="ligne-boutons">
+        <button class="button" (click)="onClickAnnuler()">Annuler</button>
+        <button class="button" (click)="onClickAjouter()">Ajouter</button>
+    </div>
+</div>
+
