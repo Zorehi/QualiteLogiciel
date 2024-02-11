@@ -29,9 +29,15 @@ public class DeviceService {
     public List<Device> getDevicesByName(String name) {
         return deviceRepository.findDevicesByNameContains(name);
     }
+
     @Transactional
     public void deleteDeviceByDeviceRef(String deviceRef) {
         deviceRepository.deleteByDeviceRef(deviceRef);
+    }
+    @Transactional
+    public void deleteDeviceById(int id) {
+
+        deviceRepository.delete(deviceRepository.findById(id));
     }
 
 

@@ -49,9 +49,17 @@ public class DeviceController {
         return ResponseEntity.ok(devices);
     }
 
-    @DeleteMapping("/delete/{deviceRef}")
-    public ResponseEntity<String> deleteDeviceByRef(@PathVariable String deviceRef) {
-        deviceService.deleteDeviceByDeviceRef(deviceRef);
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteDeviceById(@PathVariable int id) {
+        deviceService.deleteDeviceById(id);
         return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<Device> searchDevicesById(@RequestParam int id) {
+        Device device = deviceRepository.findById(id);
+        return ResponseEntity.ok(device);
     }
 }
