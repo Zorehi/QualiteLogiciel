@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Device;
 import com.example.demo.repository.DeviceRepository;
+import com.example.demo.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ public class DeviceController {
     private DeviceService deviceService;
     @Autowired
     private DeviceRepository deviceRepository;
+    @Autowired
+    private BookService bookService;
 
     @PutMapping("/add")
     public ResponseEntity<String> addDevice(@RequestBody Device device)  {
@@ -53,6 +56,8 @@ public class DeviceController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteDeviceById(@PathVariable int id) {
+        Device device = deviceRepository.findById(id);
+        bookService.deleteDeviceWithBooks(device);
         deviceService.deleteDeviceById(id);
         return ResponseEntity.ok(null);
     }

@@ -17,5 +17,9 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     Optional<Book> findByDeviceAndEndDateIsNull(Device device);
 
     List<Book> findByUser(Users user);
+
+    void deleteByUser(Users user);
+
+    void deleteByDevice(Device device);
 }
 
