@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Profil, UserService} from "../../../services/user.service";
 import {FormControl} from "@angular/forms";
 import {debounceTime, distinctUntilChanged} from "rxjs";
+import {Device} from "../../../services/device.service";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-profil-list',
@@ -16,7 +18,9 @@ export class ProfilListComponent implements OnInit {
   formControl: FormControl = new FormControl();
 
   constructor(private userService: UserService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              public authService: AuthService) {
   }
 
   ngOnInit() {
@@ -37,5 +41,7 @@ export class ProfilListComponent implements OnInit {
     });
   }
 
-  protected readonly Profil = Profil;
+  onClickRow(profil: Profil) {
+    this.router.navigate(['profil', 'info', profil.usersId]);
+  }
 }

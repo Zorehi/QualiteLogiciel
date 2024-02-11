@@ -8,7 +8,7 @@ import {Profil} from "./user.service";
   providedIn: 'root'
 })
 export class AuthService {
-  IsAuthenticated: boolean = true;
+  IsAuthenticated: boolean = false;
   AuthenticatedUser: Profil = new Profil();
 
   constructor(private http: HttpClient) { }

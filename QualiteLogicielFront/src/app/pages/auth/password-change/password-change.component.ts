@@ -4,6 +4,8 @@ import {AuthService} from "../../../services/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 
+const regPassword: RegExp = new RegExp('^.{4,128}$');
+
 @Component({
   selector: 'app-password-change',
   templateUrl: './password-change.component.html',
@@ -18,8 +20,8 @@ export class PasswordChangeComponent {
               private titleService: Title) {
     this.titleService.setTitle('Changement de mot de passe - LocaMat');
     this.changePasswordForm = this.fb.group({
-      newPassword: ['', Validators.required],
-      confirmNewPassword: ['', Validators.required]
+      newPassword: ['', [Validators.required, Validators.pattern(regPassword)]],
+      confirmNewPassword: ['', [Validators.required, Validators.pattern(regPassword)]]
     })
   }
 
@@ -29,9 +31,7 @@ export class PasswordChangeComponent {
 
     if (newPassword == confirmNewPassword) {
       this.authService.PatchPassword(this.authService.AuthenticatedUser.usersId, newPassword).subscribe(data => {
-        if (data) {
-          this.route.navigate(['accueil']);
-        }
+        this.route.navigate(['accueil']);
       })
     } else {
       alert("Les mots de passe ne sont pas identiques");

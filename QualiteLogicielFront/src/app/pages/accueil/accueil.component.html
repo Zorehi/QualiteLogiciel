@@ -1,5 +1,6 @@
 <app-header></app-header>
 <div class="flex-center" style="flex-direction: column">
   <app-input-field type="search" style="width: 400px" (keyup.enter)="onEnterKeySearchDevice($event)" [control]="searchDevice">Rechercher un matériel</app-input-field>
-  <app-input-field type="search" style="width: 400px" (keyup.enter)="onEnterKeySearchProfil($event)" [control]="searchProfil">Rechercher un compte</app-input-field>
+  <app-input-field *ngIf="authService.AuthenticatedUser.role.roleId == 1" type="search" style="width: 400px" (keyup.enter)="onEnterKeySearchProfil($event)"
+                    [control]="searchProfil">Rechercher un compte</app-input-field>
 </div>

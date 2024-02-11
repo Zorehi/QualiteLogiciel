@@ -48,6 +48,15 @@ export class UserService {
     )
   }
 
+  DeleteProfil(id: number) {
+    return this.http.delete(`${environment.protocol}://${environment.backend}/users/delete?id=${id}`).pipe(
+      catchError(err => {
+        alert("Une erreur est survenue lors de la suppression du profil");
+        return of();
+      })
+    )
+  }
+
 }
 
 export class Profil {

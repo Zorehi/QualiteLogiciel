@@ -10,6 +10,8 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {ProfilAddComponent} from "./profil-add/profil-add.component";
 import {MatSelectModule} from "@angular/material/select";
+import {AppModule} from "../../app.module";
+import {PipesModule} from "../../pipes/pipes.module";
 
 const profilRoutes: Routes = [
   { path: 'profil/search/:search', component: ProfilListComponent, canActivate: [AuthGuard] },
@@ -31,7 +33,8 @@ const profilRoutes: Routes = [
     ComponentsModule,
     MatSortModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    PipesModule
   ]
 })
 export class ProfilModule { }

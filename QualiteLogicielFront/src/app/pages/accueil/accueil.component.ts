@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {Router} from "@angular/router";
 import {FormControl} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-accueil',
@@ -13,7 +14,8 @@ export class AccueilComponent {
   searchDevice: FormControl = new FormControl('');
   searchProfil: FormControl = new FormControl('');
   constructor(private titleService: Title,
-              private router: Router) {
+              private router: Router,
+              public authService: AuthService) {
     this.titleService.setTitle('Accueil - LocaMat');
   }
 

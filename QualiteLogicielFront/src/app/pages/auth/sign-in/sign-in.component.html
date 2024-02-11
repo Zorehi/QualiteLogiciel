@@ -1,5 +1,5 @@
 <div class="container" [formGroup]="connexionForm">
-    <app-input-field type="text" [control]="connexionForm.controls['email']">Mail ou matricule</app-input-field>
+    <app-input-field type="text" [control]="connexionForm.controls['email']">Email ou matricule</app-input-field>
     <app-input-field type="password" [control]="connexionForm.controls['password']">Mot de passe</app-input-field>
     <button class="button" (click)="onClickConnexion()" [disabled]="connexionForm.invalid">Connexion</button>
 </div>

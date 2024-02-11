@@ -5,5 +5,13 @@
     <app-input-field type="text" [control]="deviceForm.controls['version']">Version</app-input-field>
     <app-input-field type="text" [control]="deviceForm.controls['ref']">Référence</app-input-field>
     <app-input-field type="text" [control]="deviceForm.controls['num']">Numéro de téléphone</app-input-field>
-    <button #button class="button" (click)="onClickModifier()">Modifier</button>
+    <div class="flex-center" style="gap: 20px">
+        <button *ngIf="!(IsBooked || IsBookedByMe)" class="button" (click)="onClickReserver()">Réserver</button>
+        <button *ngIf="IsBookedByMe" class="button" (click)="onClickReturn()">Rendre</button>
+        <button *ngIf="authService.AuthenticatedUser.role.roleId == 1" #button class="button"
+                (click)="onClickModifier()" [disabled]="deviceForm.invalid">Modifier</button>
+        <button *ngIf="authService.AuthenticatedUser.role.roleId == 1" class="button"
+                (click)="onClickSupprimer()">Supprimer
+        </button>
+    </div>
 </div>

@@ -6,6 +6,12 @@ import {InputFieldComponent} from "../../../components/input-field/input-field.c
 import {ActivatedRoute, Route, Router} from "@angular/router";
 import {Role, RoleService} from "../../../services/role.service";
 import {AuthService} from "../../../services/auth.service";
+import {Book, Device, DeviceService} from "../../../services/device.service";
+
+const regMail: RegExp = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
+const regMatricule: RegExp = new RegExp('^[a-zA-Z0-9]{7}$');
+const regNom: RegExp = new RegExp('^[a-zA-ZÀ-ÖØ-öø-ÿçÇ\\-\']{1,30}$');
+const regPrenom: RegExp = new RegExp('^[a-zA-ZÀ-ÖØ-öø-ÿçÇ\\-\']{1,30}$');
 
 @Component({
   selector: 'app-profil-info',
@@ -18,6 +24,8 @@ export class ProfilInfoComponent implements AfterViewInit, OnInit {
   profilForm: FormGroup;
   profil: Profil = new Profil();
   Roles: Role[] = [];
+  bookList: Book[] = [];
+  displayedColumns: string[] = ['deviceName', 'deviceRef', 'startDate', 'endDate'];
 
   constructor(private titleService: Title,
               private fb: FormBuilder,
@@ -25,12 +33,13 @@ export class ProfilInfoComponent implements AfterViewInit, OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private roleService: RoleService,
-              private authService: AuthService) {
+              public authService: AuthService,
+              private deviceService: DeviceService) {
     this.profilForm = this.fb.group({
-      nom: ['', Validators.required],
-      prenom: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      matricule: ['', Validators.required],
+      nom: ['', Validators.required, Validators.pattern(regNom)],
+      prenom: ['', Validators.required, Validators.pattern(regPrenom)],
+      email: ['', [Validators.required, Validators.pattern(regMail)]],
+      matricule: ['', Validators.required, Validators.pattern(regMatricule)],
       role: ['', Validators.required]
     })
     this.titleService.setTitle('Profil - LocaMat');
@@ -55,6 +64,11 @@ export class ProfilInfoComponent implements AfterViewInit, OnInit {
           this.profilForm.controls["role"].setValue(this.Roles.find(role => role.roleId == this.profil.role.roleId));
         }
       });
+      this.deviceService.GetBookByUsersId(idUser).subscribe(data => {
+        if (data) {
+          this.bookList = data;
+        }
+      })
     } else {
       this.router.navigate(['accueil']);
     }
@@ -99,7 +113,20 @@ export class ProfilInfoComponent implements AfterViewInit, OnInit {
         if (profil.usersId == this.authService.AuthenticatedUser.usersId) {
           this.authService.AuthenticatedUser = profil;
         }
+        alert("Profil modifié");
       });
     }
+  }
+
+  onClickSupprimer() {
+    if (confirm("Voulez-vous vraiment supprimer cet utilisateur ?")) {
+      this.usersService.DeleteProfil(this.profil.usersId).subscribe(data => {
+        this.router.navigate(['profil', 'search', '']);
+      });
+    }
+  }
+
+  onClickRow(book: Book) {
+    this.router.navigate(['device', 'info', book.device.deviceId]);
   }
 }

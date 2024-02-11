@@ -60,9 +60,7 @@ export class DeviceAddComponent {
       window.alert("Référence de l'appareil manquante");
     else if (!regReference.test(device.deviceRef))
       window.alert("Format de reference d'appareil invalide");
-    else
-      window.alert("nom, ref, version valides, suite en construction...");
-    // TODO verifier image puis {insert puis alert/navigate}/alert
+
     this.deviceService.PutDevice(device).subscribe(() => {
       window.alert("Appareil ajouté avec succès");
       this.router.navigate(["accueil"]);
@@ -80,6 +78,4 @@ export class DeviceAddComponent {
       this.router.navigate(["accueil"]);
     }
   }
-
-  protected readonly FormControl = FormControl;
 }

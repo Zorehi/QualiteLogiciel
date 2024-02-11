@@ -1,9 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Device, DeviceService} from "../../../services/device.service";
 import {InputFieldComponent} from "../../../components/input-field/input-field.component";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {debounceTime, distinctUntilChanged} from "rxjs";
 import {FormControl} from "@angular/forms";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-materiel-list',
@@ -18,7 +19,9 @@ export class DeviceListComponent implements OnInit {
   formControl: FormControl = new FormControl();
 
   constructor(private deviceService: DeviceService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              public authService: AuthService) {
   }
 
   ngOnInit() {
@@ -39,5 +42,8 @@ export class DeviceListComponent implements OnInit {
     });
   }
 
-  protected readonly Device = Device;
+  onClickRow(device: Device) {
+    this.router.navigate(['device', 'info', device.deviceId]);
+  }
+
 }

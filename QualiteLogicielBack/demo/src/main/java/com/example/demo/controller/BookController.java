@@ -67,7 +67,7 @@ public class BookController {
     }
 
     @GetMapping("/getdevice")
-    public ResponseEntity<Book> getBookById(@RequestParam int userid, @RequestParam int deviceid) {
+    public ResponseEntity<Boolean> getBookById(@RequestParam int userid, @RequestParam int deviceid) {
 
         Users user = usersRepository.findById(userid);
         Device device = deviceRepository.findById(deviceid);
@@ -75,10 +75,10 @@ public class BookController {
         if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
 
-            return ResponseEntity.ok(book);
+            return ResponseEntity.ok(Boolean.TRUE);
         } else {
 
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(Boolean.FALSE);
         }
     }
 
