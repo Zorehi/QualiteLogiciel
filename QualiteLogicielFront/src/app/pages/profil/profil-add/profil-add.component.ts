@@ -81,9 +81,7 @@ export class ProfilAddComponent implements OnInit {
     // choix du role d'utilisateur
     else if (profil.role.name.length == 0)
       window.alert("Role de l'utilisateur manquant");
-    else if (profil.role.name == "admin" || window.confirm("Voulez-vous vraiment donner le role d'administrateur à cette personne ?"))
-      window.alert("tous les champs sont valides, suite en construction...");
-      // TODO essayer d'insert puis alert/navigate
+    else if (profil.role.roleId == 1 || window.confirm("Voulez-vous vraiment donner le role d'administrateur à cette personne ?"))
     this.usersService.PutProfil(profil).subscribe(() => {
       window.alert("Profil ajouté avec succès");
       this.router.navigate(["accueil"]);
