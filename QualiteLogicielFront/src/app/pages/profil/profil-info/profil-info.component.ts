@@ -18,7 +18,7 @@ const regPrenom: RegExp = new RegExp('^[a-zA-ZÀ-ÖØ-öø-ÿçÇ\\-\']{1,30}$')
   templateUrl: './profil-info.component.html',
   styleUrls: ['./profil-info.component.scss']
 })
-export class ProfilInfoComponent implements AfterViewInit, OnInit {
+export class ProfilInfoComponent implements OnInit {
   @ViewChild("button") button: ElementRef<HTMLButtonElement>
 
   profilForm: FormGroup;
@@ -36,10 +36,10 @@ export class ProfilInfoComponent implements AfterViewInit, OnInit {
               public authService: AuthService,
               private deviceService: DeviceService) {
     this.profilForm = this.fb.group({
-      nom: ['', Validators.required, Validators.pattern(regNom)],
-      prenom: ['', Validators.required, Validators.pattern(regPrenom)],
+      nom: ['', [Validators.required, Validators.pattern(regNom)]],
+      prenom: ['', [Validators.required, Validators.pattern(regPrenom)]],
       email: ['', [Validators.required, Validators.pattern(regMail)]],
-      matricule: ['', Validators.required, Validators.pattern(regMatricule)],
+      matricule: ['', [Validators.required, Validators.pattern(regMatricule)]],
       role: ['', Validators.required]
     })
     this.titleService.setTitle('Profil - LocaMat');
@@ -48,6 +48,12 @@ export class ProfilInfoComponent implements AfterViewInit, OnInit {
         this.Roles = data;
       }
     });
+
+    this.profilForm.controls["nom"].disable();
+    this.profilForm.controls["prenom"].disable();
+    this.profilForm.controls["email"].disable();
+    this.profilForm.controls["matricule"].disable();
+    this.profilForm.controls["role"].disable();
   }
 
   ngOnInit(): void {
@@ -72,14 +78,6 @@ export class ProfilInfoComponent implements AfterViewInit, OnInit {
     } else {
       this.router.navigate(['accueil']);
     }
-  }
-
-  ngAfterViewInit() {
-    this.profilForm.controls["nom"].disable();
-    this.profilForm.controls["prenom"].disable();
-    this.profilForm.controls["email"].disable();
-    this.profilForm.controls["matricule"].disable();
-    this.profilForm.controls["role"].disable();
   }
 
   onClickModifier() {
