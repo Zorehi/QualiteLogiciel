@@ -10,6 +10,7 @@ import com.example.demo.repository.DeviceRepository;
 import com.example.demo.repository.UsersRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -54,6 +55,47 @@ public class BookController {
         bookRepository.save(book);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Book créé avec succès");
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<List<Book>> getAllBooks(@RequestParam int id) {
+
+        Users user = usersRepository.findById(id);
+
+        List<Book> userBooks = bookRepository.findByUser(user);
+        return ResponseEntity.ok(userBooks);
+    }
+
+    @GetMapping("/getdevice")
+    public ResponseEntity<Book> getBookById(@RequestParam int userid, @RequestParam int deviceid) {
+
+        Users user = usersRepository.findById(userid);
+        Device device = deviceRepository.findById(deviceid);
+        Optional<Book> optionalBook = bookRepository.findByUserAndDeviceAndEndDateIsNull(user, device);
+        if (optionalBook.isPresent()) {
+            Book book = optionalBook.get();
+
+            return ResponseEntity.ok(book);
+        } else {
+
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/isbook")
+    public ResponseEntity<Boolean> getBookByIdDevice(@RequestParam int deviceid) {
+
+        Device device = deviceRepository.findById(deviceid);
+        Optional<Book> optionalBook = bookRepository.findByDeviceAndEndDateIsNull(device);
+        if (optionalBook.isPresent()) {
+            Book book = optionalBook.get();
+
+            return ResponseEntity.ok(Boolean.TRUE);
+        } else {
+
+            return ResponseEntity.ok(Boolean.FALSE);
+        }
+
     }
 }
 

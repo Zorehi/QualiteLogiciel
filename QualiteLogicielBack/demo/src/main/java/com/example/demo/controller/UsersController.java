@@ -55,5 +55,11 @@ public class UsersController {
 
         return ResponseEntity.ok(users);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteUsersById(@RequestParam int id){
+        userRepository.delete(userRepository.findById(id));
+        return ResponseEntity.ok(null);
+    }
 }
 
